@@ -1,24 +1,31 @@
 const express =require("express");
-
+const routerConfig = require("./router.config");
 const app= express();
 
+app.use(express.json())
+app.use(express.urlencoded())
 
-//Routing 
 
-app.use("/",(req,res,next)=>{
-    res.json({
-        data:[{}],
-        message:"Success",
-        status:"SUCCESS",
+app.use("/api",routerConfig)
+
+app.use((req,res,next)=>{
+  next({
+    code:404,
+    message:"Resource not found",
+    status:"NOT FOUND"
+  })
+})
+
+app.use((error,req,res,next)=>{
+    let code =error.code || 500;
+    let errDetail= error.detail || null;
+    let msg=error.message || 'Server error...!';
+    let status=error.status || "SERVER_ERROR"
+    res.status(code).json({
+        error:errDetail,
+        message:msg,
+        status:status,
         options:null
     })
 })
-
-// app.get("/",(req,res,next)=>{
-//     res.json("Hello form get")
-// })
-// app.post()
-// app.put()
-// app.patch()
-// app.delete()
 module.exports = app;
