@@ -1,7 +1,23 @@
 const express = require("express");
 const routerConfig = require("./router.config");
-const app = express();
 const fs = require("fs")
+const cors = require("cors");
+const { default: rateLimit } = require("express-rate-limit");
+const helmet = require("helmet");
+require("./mongoose.config");
+const app = express();
+
+//cors allow
+app.use(cors({
+    origin: "*",
+}))
+
+app.use(rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    limit: 30 // limit each IP to 30 requests per windowMs
+}))
+
+app.use(helmet())
 
 app.use(express.json())
 app.use(express.urlencoded())
@@ -22,8 +38,8 @@ app.use((error, req, res, next) => {
     let errDetail = error.detail || null;
     let msg = error.message || 'Server error...!';
     let status = error.status || "SERVER_ERROR"
-
-    if (fs.existsSync(req.file.path)) {
+    
+    if(req.file && fs.existsSync(req.file.path)){ 
         fs.unlinkSync(req.file.path);
     }
     res.status(code).json({

@@ -13,4 +13,15 @@ const BloodGroup = {
   O_POS: "O+",
   O_NEG: "O-",
 }
-module.exports={UserRole, BloodGroup}
+const Gender={
+  MALE:"male",
+  FEMALE:"female",
+  OTHER:"other"
+}
+const UserStatus={
+  ACTIVE:"active",
+  INACTIVE:"inactive"
+}
+
+
+module.exports={UserRole, BloodGroup, Gender, UserStatus}

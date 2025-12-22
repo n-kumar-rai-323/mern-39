@@ -1,12 +1,10 @@
 const Joi = require("joi")
 const { UserRole, BloodGroup } = require("../../config/constants")
 
-const userRegisterDTO = Joi.object(
+const UserUpdateDTO = Joi.object(
     {
         name: Joi.string().min(2).max(50).required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[$&+,:;=?@#|'<>.^*()%!-]).{8,}$/).required(),
-        confirmPassword: Joi.string().allow(Joi.ref("password")).required(),
+        
         phone: Joi.object({
             countryCode: Joi.string(),
             phone: Joi.string().min(10).max(10)
@@ -18,11 +16,5 @@ const userRegisterDTO = Joi.object(
         age: Joi.number().min(0).max(150).required(),
     }
 )
-const LoginDTO=Joi.object(
-    {
-        email:Joi.string().email().required(),
-        password:Joi.string().required()
-    }
-)
 
-module.exports = { userRegisterDTO, LoginDTO }
+module.exports = { UserUpdateDTO }

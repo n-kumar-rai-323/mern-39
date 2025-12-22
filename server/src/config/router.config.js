@@ -1,5 +1,5 @@
 const authRouter = require("../modules/auth/auth.router")
-
+const userRouter = require("../modules/user/user.router")
 const routerConfig= require("express").Router()
 
 
@@ -27,7 +27,6 @@ routerConfig.get("/health", functionName,(req,res,next)=>{
 
 
 routerConfig.use("/auth", authRouter)
-
-
+routerConfig.use("/user", userRouter)
 
 module.exports=routerConfig

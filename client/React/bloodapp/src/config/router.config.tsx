@@ -1,35 +1,23 @@
 import { BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider } from "react-router";
 
-import BloodRegisterDesign from "../pages/auth/register/register";
-import BloodLoginDesign from "../pages/auth/login/login.page";
-import AuthLayout from "../pages/home/auth";
+// import BloodRegisterDesign from "../pages/auth/register/register";
 import NotFound from "../components/error/not-found";
-import HomePage from "../pages/home/landing";
-import FindDonors from "../pages/home/donor";
-import AdminDashboard from "../pages/auth/dashbord/admin";
+import BloodRegisterDesign from "../pages/auth/register/register.page";
+import { ToastContainer } from "react-toastify";
+import BloodLoginDesignn from "../pages/auth/login/login.page";
 
 // second approch 
 const routerConfig= createBrowserRouter([
+    
     {
-        path:"/",
-        element:<BloodLoginDesign/>
+        path:"/login",
+        element:<BloodLoginDesignn/>
     },
     {
         path:"/register",
-        Component:BloodRegisterDesign
+        element:<BloodRegisterDesign/>
     },
-    {
-        path:"/landing",
-        element:<HomePage/>
-    },
-    {
-        path:"/donor",
-        element:<FindDonors/>
-    },
-    {
-        path:"/dashbord",
-        element:<AdminDashboard/>
-    },
+
     {
         path:"*",
         element:<NotFound/>
@@ -40,6 +28,8 @@ const routerConfig= createBrowserRouter([
 const RouterConfig = () => {
     return (
         <>
+
+        <ToastContainer theme="colored"/>
         <RouterProvider router={routerConfig}/>
             {/* first aproch  */}
             {/* <BrowserRouter>
